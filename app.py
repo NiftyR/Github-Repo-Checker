@@ -3,9 +3,9 @@ from settings import *
 import asyncio
 import requests
 import json
+from checker import Checker
 
 app = Flask(__name__)
-currentRepos = []
 
 @app.route('/')
 def home():
@@ -19,11 +19,5 @@ def get_repos():
                 return json.dumps(currentRepos)
     else:
         return ""
-
-async def GetGithubRepo():
-    req = requests.get(f"https://api.github.com/users/{github_username}/repos").json() 
-    print(req[0])
-    asyncio.sleep(120)
-    currentRepos.clear()
 
 app.run(host=host, port=port)
