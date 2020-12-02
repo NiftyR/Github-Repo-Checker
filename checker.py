@@ -1,9 +1,12 @@
 import asyncio, requests
 from settings import *
+
 class Checker():
+
     async def GetGithubRepo():
         while True:
             req = requests.get(f"https://api.github.com/users/{github_username}/repos").json() 
+            print(req)
             counter = 0
             try:
                 while(req[counter] != None):
@@ -16,5 +19,7 @@ class Checker():
             currentRepos.clear()
 
 
-loop = asyncio.get_event_loop()
-loop.run_until_complete(Checker.GetGithubRepo())
+    def Start_Task():
+        asyncio.run(Checker.GetGithubRepo())
+        # loop = asyncio.get_event_loop()
+        # loop.run_until_complete(Checker.GetGithubRepo)

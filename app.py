@@ -3,6 +3,7 @@ from settings import *
 import asyncio
 import requests
 import json
+from threading import Thread
 from checker import Checker
 
 app = Flask(__name__)
@@ -20,4 +21,7 @@ def get_repos():
     else:
         return ""
 
-app.run(host=host, port=port)
+task = Thread(target=Checker.Start_Task)
+task.daemon = True
+task.start()
+app.run(host=host, port=port, threaded=True)
